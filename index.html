@@ -79,6 +79,8 @@
   <audio data-key="90" src="sounds/z.mp3"></audio>
   
 <script>
+  let currentSoundSource = "sounds/";
+
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
@@ -94,9 +96,27 @@
     audio.play();
   }
 
+  function toggle(e) {
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+
+    const keyCode = e.keyCode;
+
+    if (keyCode === 49) {  // "1" key pressed
+      currentSoundSource = "sounds/";
+      if (key != null) key.classList.add('playing');
+    } else if (keyCode === 50) {  // "2" key pressed
+      currentSoundSource = "sounds/2/";
+      if (key != null) key.classList.add('playing');
+    } 
+  }
+
   const keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
+
+  const controls = Array.from(document.querySelectorAll('.toggle'));
+  controls.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', toggle);
 </script>
 
 
