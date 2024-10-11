@@ -93,6 +93,13 @@
 
     key.classList.add('playing');
     audio.currentTime = 0;
+
+    audio.src = `${currentSoundSource}${String.fromCharCode(e.keyCode).toLowerCase()}.mp3`;
+
+    audio.addEventListener('error', (event) => {
+      console.error('Error loading audio:', event.target.src);
+    });
+
     audio.play();
   }
 
